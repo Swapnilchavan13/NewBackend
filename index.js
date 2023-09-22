@@ -1,36 +1,47 @@
-const express = require('express')
-const app = express()
-const port = 3000;
+const express = require('express');
+const bodyParser = require('body-parser');
+const twilio = require('twilio');
+const cors = require('cors'); // Import the cors package
 
-app.get('/', (req, res) => {
-    res.send("Hello New Backend")
-})
+const app = express();
+const port = 5000;
 
-app.get('/hello', (req, res) => {
-    res.send("Is This working Fine")
-})
+// Twilio API credentials
+const accountSid = 'ACf495c3028b01961eb2fe87cc4a917bb2';
+const authToken = 'e110169d2fe66dc16352bf57e05116da';
+const twilioPhoneNumber = '+17209614582';
 
-app.get("/new", (req, res) => {
-    res.send("hello This is new Backend")
-})
+// Create a Twilio client
+const client = twilio(accountSid, authToken);
 
-app.get("/main", (req, res) => {
-    res.send({
-        "posts": [
-          { "id": 1, "title": "This is Post One" },
-          { "id": 2, "title": "This is Post Two" },
-          { "id": 3, "title": "This is Post Three" }
-        ],
-        "comments": [
-          { "id": 1, "body": "some comment", "postId": 1 },
-          { "id": 2, "body": "Another comment", "postId": 2 }
-        ],
-        "profile": {
-          "name": "Don`t type code"
-        }
-      })
-})
+// Middleware
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
+// Enable CORS to allow requests from your React frontend
+app.use(cors());
+
+// Send SMS route
+app.post('/api/send-sms', (req, res) => {
+  const { to, body } = req.body;
+
+  client.messages
+    .create({
+      body,
+      from: twilioPhoneNumber,
+      to,
+    })
+    .then((message) => {
+      console.log(`Message sent with SID: ${message.sid}`);
+      res.json({ success: true });
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).json({ success: false, error: 'Failed to send SMS' });
+    });
+});
+
+// Start the server
 app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`)
-})
+  console.log(`Server is running on port ${port}`);
+});
