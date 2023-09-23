@@ -32,7 +32,7 @@ const BookedSeat = require('./models/bookedseats');
 
 // Twilio API credentials
 const accountSid = 'ACf495c3028b01961eb2fe87cc4a917bb2';
-const authToken = 'bf70378b6115d5525355343f1aef2dcc';
+const authToken = process.env.auth;
 const twilioPhoneNumber = '+17209614582';
 
 // Create a Twilio client
@@ -58,7 +58,6 @@ app.post('/book-seats', async (req, res) => {
     res.status(500).json({ success: false, error: 'Failed to book seats' });
   }
 });
-
 
 // Route to get the list of booked seats from the database
 app.get('/booked-seats', async (req, res) => {
