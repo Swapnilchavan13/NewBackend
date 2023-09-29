@@ -33,7 +33,7 @@ const BookedSeat = require('./models/bookedseats');
 const accountSid = 'ACf495c3028b01961eb2fe87cc4a917bb2';
 const twilioPhoneNumber = '+17209614582';
 // const authToken = process.env.auth;
-const authToken = '2970039d64ea69fd5b286269ac23c21b'
+const authToken = '2970039d64ea69fd5b286269ac23c21b';
 
 // Create a Twilio client
 const client = twilio(accountSid, authToken);
@@ -78,6 +78,27 @@ app.post('/send-sms', (req, res) => {
 
   client.messages
     .create({
+      to,
+      body,
+      from: twilioPhoneNumber,
+    })
+    .then((message) => {
+      console.log(`Message sent with SID: ${message.sid}`);
+      res.json({ success: true });
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).json({ success: false, error: 'Failed to send SMS' });
+    });
+});
+
+
+// Send SMS route
+app.post('/send-sms', (req, res) => {
+  const { to, body } = req.body;
+
+  client.messages
+    .create({
       body,
       from: twilioPhoneNumber,
       to,
@@ -91,6 +112,7 @@ app.post('/send-sms', (req, res) => {
       res.status(500).json({ success: false, error: 'Failed to send SMS' });
     });
 });
+
 
 // Start the server
 connectDB().then(() => {
