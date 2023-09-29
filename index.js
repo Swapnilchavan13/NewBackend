@@ -7,7 +7,7 @@ const cors = require('cors');
 
 const app = express();
 const PORT = 5000;
-
+ 
 
 mongoose.set('strictQuery', false);
 
@@ -29,11 +29,10 @@ const connectDB = async () => {
 
 const BookedSeat = require('./models/bookedseats');
 
-
 // Twilio API credentials
 const accountSid = 'ACf495c3028b01961eb2fe87cc4a917bb2';
-const authToken = process.env.auth;
 const twilioPhoneNumber = '+17209614582';
+const authToken = process.env.auth;
 
 // Create a Twilio client
 const client = twilio(accountSid, authToken);
@@ -92,6 +91,8 @@ app.post('/api/send-sms', (req, res) => {
       res.status(500).json({ success: false, error: 'Failed to send SMS' });
     });
 });
+
+
 
 // Start the server
 connectDB().then(() => {
