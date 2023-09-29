@@ -74,7 +74,7 @@ app.get('/booked-seats', async (req, res) => {
 
 
 // Send SMS route
-app.post('/api/send-sms', (req, res) => {
+app.post('/send-sms', (req, res) => {
   const { to, body } = req.body;
 
   client.messages
