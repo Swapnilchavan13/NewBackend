@@ -14,7 +14,7 @@ mongoose.set('strictQuery', false);
 // MongoDB Connection
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(process.env.MONGO_URL, {
+    const conn = await mongoose.connect('mongodb+srv://swapnil:swapnil@cluster0.ghocflp.mongodb.net/ticketdata', {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
