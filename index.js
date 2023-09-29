@@ -32,7 +32,8 @@ const BookedSeat = require('./models/bookedseats');
 // Twilio API credentials
 const accountSid = 'ACf495c3028b01961eb2fe87cc4a917bb2';
 const twilioPhoneNumber = '+17209614582';
-const authToken = process.env.auth;
+// const authToken = process.env.auth;
+const authToken = 'bf70378b6115d5525355343f1aef2dcc'
 
 // Create a Twilio client
 const client = twilio(accountSid, authToken);
