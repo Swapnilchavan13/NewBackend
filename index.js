@@ -7,14 +7,14 @@ const cors = require('cors');
 
 const app = express();
 const PORT = 5000;
- 
+
 
 mongoose.set('strictQuery', false);
 
 // MongoDB Connection
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect('mongodb+srv://swapnil:swapnil@cluster0.ghocflp.mongodb.net/ticketdata', {
+    const conn = await mongoose.connect(process.env.MONGO_URL, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
@@ -29,11 +29,11 @@ const connectDB = async () => {
 
 const BookedSeat = require('./models/bookedseats');
 
+
 // Twilio API credentials
 const accountSid = 'ACf495c3028b01961eb2fe87cc4a917bb2';
-const twilioPhoneNumber = '+17209614582';
-// const authToken = process.env.auth;
 const authToken = '2970039d64ea69fd5b286269ac23c21b';
+const twilioPhoneNumber = '+17209614582';
 
 // Create a Twilio client
 const client = twilio(accountSid, authToken);
@@ -72,29 +72,9 @@ app.get('/booked-seats', async (req, res) => {
   }
 });
 
-// Send SMS route
-app.post('/send-sms', (req, res) => {
-  const { to, body } = req.body;
-
-  client.messages
-    .create({
-      to,
-      body,
-      from: twilioPhoneNumber,
-    })
-    .then((message) => {
-      console.log(`Message sent with SID: ${message.sid}`);
-      res.json({ success: true });
-    })
-    .catch((error) => {
-      console.error(error);
-      res.status(500).json({ success: false, error: 'Failed to send SMS' });
-    });
-});
-
 
 // Send SMS route
-app.post('/send-sms', (req, res) => {
+app.post('/api/send-sms', (req, res) => {
   const { to, body } = req.body;
 
   client.messages
@@ -112,7 +92,6 @@ app.post('/send-sms', (req, res) => {
       res.status(500).json({ success: false, error: 'Failed to send SMS' });
     });
 });
-
 
 // Start the server
 connectDB().then(() => {
