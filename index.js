@@ -14,7 +14,7 @@ mongoose.set('strictQuery', false);
 // MongoDB Connection
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect('mongodb+srv://swapnil:swapnil@cluster0.ghocflp.mongodb.net/ticketdata' , {
+    const conn = await mongoose.connect(process.env.MONGO_URL, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
@@ -32,7 +32,7 @@ const BookedSeat = require('./models/bookedseats');
 
 // Twilio API credentials
 const accountSid = 'ACf495c3028b01961eb2fe87cc4a917bb2';
-const authToken = '2970039d64ea69fd5b286269ac23c21b';
+const authToken = process.env.auth;
 const twilioPhoneNumber = '+17209614582';
 
 // Create a Twilio client
