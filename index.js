@@ -17,6 +17,7 @@ const connectDB = async () => {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
+    
 
     console.log(`MongoDB Connected: ${conn.connection.host}`);
   } catch (error) {
@@ -25,17 +26,7 @@ const connectDB = async () => {
   }
 };
 
-// const BookedSeat = require('./models/bookedseats');
-
-const {
-  MondaySeat,
-  TuesdaySeat,
-  WednesdaySeat,
-  BookedSeat,
-  ThursdaySeat,
-  SaturdaySeat,
-  SundaySeat,
-} = require('./models/bookedseats'); // Import your Mongoose models here
+const BookedSeat = require('./models/bookedseats');
 
 // Twilio API credentials
 const accountSid = 'ACf495c3028b01961eb2fe87cc4a917bb2';
@@ -51,86 +42,6 @@ app.use(bodyParser.json());
 
 // Enable CORS to allow requests from your React frontend
 app.use(cors());
-
-// POST request to create a new seat for a specific day
-app.post('/seats/:day', async (req, res) => {
-  const day = req.params.day;
-  let model;
-
-  switch (day) {
-    case 'monday':
-      model = MondaySeat;
-      break;
-    case 'tuesday':
-      model = TuesdaySeat;
-      break;
-    case 'wednesday':
-      model = WednesdaySeat;
-      break;
-    case 'thursday':
-      model = ThursdaySeat;
-      break;
-    case 'saturday':
-      model = SaturdaySeat;
-      break;
-    case 'sunday':
-      model = SundaySeat;
-      break;
-    default:
-      return res.status(404).json({ error: 'Invalid day' });
-  }
-
-  const { seatNumber } = req.body;
-
-  try {
-    const newSeat = new model({ seatNumber });
-    await newSeat.save();
-    res.status(201).json(newSeat);
-  } catch (err) {
-    res.status(500).json({ error: 'Internal server error' });
-  }
-});
-
-
-// GET request to retrieve all seats for a specific day as an array
-app.get('/seat/:day', async (req, res) => {
-  const day = req.params.day;
-  let model;
-
-  switch (day) {
-    case 'monday':
-      model = MondaySeat;
-      break;
-    case 'tuesday':
-      model = TuesdaySeat;
-      break;
-    case 'wednesday':
-      model = WednesdaySeat;
-      break;
-    case 'thursday':
-      model = ThursdaySeat;
-      break;
-    case 'saturday':
-      model = SaturdaySeat;
-      break;
-    case 'sunday':
-      model = SundaySeat;
-      break;
-    default:
-      return res.status(404).json({ error: 'Invalid day' });
-  }
-
-  try {
-    const seats = await model.find({}, { seatNumber: 1, _id: 0 });
-    const seatNumbers = seats.map((seat) => seat.seatNumber);
-    res.json(seatNumbers);
-  } catch (err) {
-    res.status(500).json({ error: 'Internal server error' });
-  }
-});
-
-
-// Book the seats
 
 app.post('/book-seats', async (req, res) => {
   const { selectedSeats } = req.body;
