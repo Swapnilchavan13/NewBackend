@@ -42,25 +42,25 @@ app.use(bodyParser.json());
 // Enable CORS to allow requests from your React frontend
 app.use(cors());
 
-app.post('/book-seats', async (req, res) => {
-  const { selectedSeats } = req.body;
+// app.post('/book-seats', async (req, res) => {
+//   const { selectedSeats } = req.body;
 
-  try {
-    // Store the selected seats in the bookedSeats collection in your database
-    await BookedSeat.insertMany(selectedSeats.map((seatNumber) => ({ seatNumber })));
+//   try {
+//     // Store the selected seats in the bookedSeats collection in your database
+//     await BookedSeat.insertMany(selectedSeats.map((seatNumber) => ({ seatNumber })));
 
-    res.json({ success: true });
-  } catch (error) {
-    console.error('Failed to book seats:', error);
-    res.status(500).json({ success: false, error: 'Failed to book seats' });
-  }
-});
+//     res.json({ success: true });
+//   } catch (error) {
+//     console.error('Failed to book seats:', error);
+//     res.status(500).json({ success: false, error: 'Failed to book seats' });
+//   }
+// });
 
 
 // Create a new booked seats entry
 app.post('/bookedseats', (req, res) => {
   const { seatNumbers } = req.body;
-  const bookedSeats = new BookedSeats({ seatNumbers });
+  const bookedSeats = new BookedSeat({ seatNumbers });
 
   bookedSeats.save((err, savedSeats) => {
     if (err) {
