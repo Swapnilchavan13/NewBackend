@@ -51,7 +51,7 @@ app.get('/new', async (req, res) => {
     // Query the database to get all booked seats
     const newbookedSeats = await BookedSeat.find({}, { seatNumber: 1, _id: 0 });
     const bookedSeatNumbers = newbookedSeats.map((seat) => seat.seatNumber);
-    res.json({ bookedSeats: bookedSeatNumbers });
+    res.json({ newbookedSeats: bookedSeatNumbers });
   } catch (error) {
     console.error('Failed to fetch booked seats:', error);
     res.status(500).json({ success: false, error: 'Failed to fetch booked seats' });
