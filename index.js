@@ -56,6 +56,21 @@ app.post('/book-seats', async (req, res) => {
   }
 });
 
+
+// Create a new booked seats entry
+app.post('/bookedseats', (req, res) => {
+  const { seatNumbers } = req.body;
+  const bookedSeats = new BookedSeats({ seatNumbers });
+
+  bookedSeats.save((err, savedSeats) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(201).json(savedSeats);
+    }
+  });
+});
+
 // Route to get the list of booked seats from the database
 app.get('/booked-seats', async (req, res) => {
   try {
