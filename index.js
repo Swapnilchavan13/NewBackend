@@ -25,7 +25,7 @@ const connectDB = async () => {
   }
 };
 
-const BookedSeat = require('./models/bookedseats');
+const BookedSeats = require('./models/bookedSeats');
 
 // Twilio API credentials
 const accountSid = 'ACf495c3028b01961eb2fe87cc4a917bb2';
@@ -60,7 +60,7 @@ app.use(cors());
 // Create a new booked seats entry
 app.post('/bookedseats', (req, res) => {
   const { seatNumbers } = req.body;
-  const bookedSeats = new BookedSeat({ seatNumbers });
+  const bookedSeats = new BookedSeats({ seatNumbers });
 
   bookedSeats.save((err, savedSeats) => {
     if (err) {
