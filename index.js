@@ -25,13 +25,14 @@ const connectDB = async () => {
   }
 };
 
-const BookedSeat = require('./models/bookedseats');
+// const BookedSeat = require('./models/bookedseats');
 
 const {
   MondaySeat,
   TuesdaySeat,
   WednesdaySeat,
   ThursdaySeat,
+  BookedSeat,
   SaturdaySeat,
   SundaySeat,
 } = require('./models/bookedseats'); // Import your Mongoose models here
@@ -90,7 +91,8 @@ app.post('/seats/:day', async (req, res) => {
   }
 });
 
-// GET request to retrieve all seats for a specific day
+
+// GET request to retrieve all seats for a specific day as an array
 app.get('/seats/:day', async (req, res) => {
   const day = req.params.day;
   let model;
@@ -119,12 +121,14 @@ app.get('/seats/:day', async (req, res) => {
   }
 
   try {
-    const seats = await model.find();
-    res.json(seats);
+    const seats = await model.find({}, { seatNumber: 1, _id: 0 });
+    const seatNumbers = seats.map((seat) => seat.seatNumber);
+    res.json(seatNumbers);
   } catch (err) {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+
 
 // Book the seats
 

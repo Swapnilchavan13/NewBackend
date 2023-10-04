@@ -7,7 +7,6 @@ const bookedSeatSchema = new mongoose.Schema({
   },
 });
 
-
 // Define schemas for each day of the week
 const daySchema = new mongoose.Schema({
   seatNumber: {
