@@ -19,3 +19,4 @@ const NewBookedSeat = mongoose.model('NewBookedSeat', newbookedSeatSchema);
 const BookedSeat = mongoose.model('BookedSeat', bookedSeatSchema);
 
 module.exports = BookedSeat;
+module.exports = NewBookedSeat;

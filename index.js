@@ -46,15 +46,17 @@ app.use(bodyParser.json());
 app.use(cors());
 
 
-app.get('/hello', (req, res) => {
-  res.send('Hello');
+app.get('/new', async (req, res) => {
+  try {
+    // Query the database to get all booked seats
+    const newbookedSeats = await BookedSeat.find({}, { seatNumber: 1, _id: 0 });
+    const bookedSeatNumbers = newbookedSeats.map((seat) => seat.seatNumber);
+    res.json({ newbookedSeats: bookedSeatNumbers });
+  } catch (error) {
+    console.error('Failed to fetch booked seats:', error);
+    res.status(500).json({ success: false, error: 'Failed to fetch booked seats' });
+  }
 });
-
-
-
-
-
-
 
 app.post('/book-seats', async (req, res) => {
   const { selectedSeats } = req.body;
