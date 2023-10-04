@@ -31,8 +31,8 @@ const {
   MondaySeat,
   TuesdaySeat,
   WednesdaySeat,
-  ThursdaySeat,
   BookedSeat,
+  ThursdaySeat,
   SaturdaySeat,
   SundaySeat,
 } = require('./models/bookedseats'); // Import your Mongoose models here
