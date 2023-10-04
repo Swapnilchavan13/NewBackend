@@ -18,7 +18,6 @@ const connectDB = async () => {
       useUnifiedTopology: true,
     });
     
-
     console.log(`MongoDB Connected: ${conn.connection.host}`);
   } catch (error) {
     console.log(error);
@@ -27,8 +26,6 @@ const connectDB = async () => {
 };
 
 const BookedSeat = require('./models/bookedseats');
-const NewBookedSeat = require('./models/bookedseats');
-
 
 // Twilio API credentials
 const accountSid = 'ACf495c3028b01961eb2fe87cc4a917bb2';
@@ -44,19 +41,6 @@ app.use(bodyParser.json());
 
 // Enable CORS to allow requests from your React frontend
 app.use(cors());
-
-
-app.get('/new', async (req, res) => {
-  try {
-    // Query the database to get all booked seats
-    const newbookedSeats = await BookedSeat.find({}, { seatNumber: 1, _id: 0 });
-    const bookedSeatNumbers = newbookedSeats.map((seat) => seat.seatNumber);
-    res.json({ newbookedSeats: bookedSeatNumbers });
-  } catch (error) {
-    console.error('Failed to fetch booked seats:', error);
-    res.status(500).json({ success: false, error: 'Failed to fetch booked seats' });
-  }
-});
 
 app.post('/book-seats', async (req, res) => {
   const { selectedSeats } = req.body;
