@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 
 const bookedSeatSchema = new mongoose.Schema({
-  seatNumber: {
+  seatNumber: [{
     type: Number,
     required: true,
-  },
+  }],
 });
 
 const BookedSeat = mongoose.model('BookedSeat', bookedSeatSchema);

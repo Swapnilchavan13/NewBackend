@@ -8,7 +8,6 @@ const cors = require('cors');
 const app = express();
 const PORT = 5000;
 
-
 mongoose.set('strictQuery', false);
 
 // MongoDB Connection
@@ -17,8 +16,7 @@ const connectDB = async () => {
     const conn = await mongoose.connect(process.env.MONGO_URL, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-    });
-    
+    }); 
 
     console.log(`MongoDB Connected: ${conn.connection.host}`);
   } catch (error) {
@@ -28,7 +26,6 @@ const connectDB = async () => {
 };
 
 const BookedSeat = require('./models/bookedseats');
-
 
 // Twilio API credentials
 const accountSid = 'ACf495c3028b01961eb2fe87cc4a917bb2';
@@ -71,7 +68,6 @@ app.get('/booked-seats', async (req, res) => {
     res.status(500).json({ success: false, error: 'Failed to fetch booked seats' });
   }
 });
-
 
 // Send SMS route
 app.post('/api/send-sms', (req, res) => {
