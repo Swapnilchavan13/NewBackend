@@ -1,25 +1,12 @@
-// const mongoose = require('mongoose');
-
-// const bookedSeatSchema = new mongoose.Schema({
-//   seatNumber: {
-//     type: Number,
-//     required: true,
-//   },
-// });
-
-// const BookedSeat = mongoose.model('BookedSeat', bookedSeatSchema);
-
-// module.exports = BookedSeat;
-
 const mongoose = require('mongoose');
 
-const bookedSeatsSchema = new mongoose.Schema({
-  seatNumbers: [{
+const bookedSeatSchema = new mongoose.Schema({
+  seatNumber: {
     type: Number,
     required: true,
-  }],
+  },
 });
 
-const BookedSeats = mongoose.model('BookedSeats', bookedSeatsSchema);
+const BookedSeat = mongoose.model('BookedSeat', bookedSeatSchema);
 
-module.exports = BookedSeats;
+module.exports = BookedSeat;

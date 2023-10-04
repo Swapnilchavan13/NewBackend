@@ -16,7 +16,8 @@ const connectDB = async () => {
     const conn = await mongoose.connect(process.env.MONGO_URL, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-    }); 
+    });
+    
 
     console.log(`MongoDB Connected: ${conn.connection.host}`);
   } catch (error) {
@@ -25,7 +26,7 @@ const connectDB = async () => {
   }
 };
 
-const BookedSeats = require('./models/bookedSeats');
+const BookedSeat = require('./models/bookedseats');
 
 // Twilio API credentials
 const accountSid = 'ACf495c3028b01961eb2fe87cc4a917bb2';
@@ -42,33 +43,18 @@ app.use(bodyParser.json());
 // Enable CORS to allow requests from your React frontend
 app.use(cors());
 
-// app.post('/book-seats', async (req, res) => {
-//   const { selectedSeats } = req.body;
+app.post('/book-seats', async (req, res) => {
+  const { selectedSeats } = req.body;
 
-//   try {
-//     // Store the selected seats in the bookedSeats collection in your database
-//     await BookedSeat.insertMany(selectedSeats.map((seatNumber) => ({ seatNumber })));
+  try {
+    // Store the selected seats in the bookedSeats collection in your database
+    await BookedSeat.insertMany(selectedSeats.map((seatNumber) => ({ seatNumber })));
 
-//     res.json({ success: true });
-//   } catch (error) {
-//     console.error('Failed to book seats:', error);
-//     res.status(500).json({ success: false, error: 'Failed to book seats' });
-//   }
-// });
-
-
-// Create a new booked seats entry
-app.post('/bookedseats', (req, res) => {
-  const { seatNumbers } = req.body;
-  const bookedSeats = new BookedSeats({ seatNumbers });
-
-  bookedSeats.save((err, savedSeats) => {
-    if (err) {
-      res.status(500).send(err);
-    } else {
-      res.status(201).json(savedSeats);
-    }
-  });
+    res.json({ success: true });
+  } catch (error) {
+    console.error('Failed to book seats:', error);
+    res.status(500).json({ success: false, error: 'Failed to book seats' });
+  }
 });
 
 // Route to get the list of booked seats from the database
