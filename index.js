@@ -93,7 +93,7 @@ app.post('/seats/:day', async (req, res) => {
 
 
 // GET request to retrieve all seats for a specific day as an array
-app.get('/seats/:day', async (req, res) => {
+app.get('/seat/:day', async (req, res) => {
   const day = req.params.day;
   let model;
 
