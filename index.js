@@ -74,6 +74,10 @@ app.get('/welcome', (req, res) => {
 });
 
 
+app.get('/new', (req, res) => {
+  res.send('Welcome to the New Port!');
+});
+
 // Send SMS route
 app.post('/api/send-sms', (req, res) => {
   const { to, body } = req.body;
