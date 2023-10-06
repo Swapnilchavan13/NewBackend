@@ -7,10 +7,10 @@ const cors = require('cors');
 
 const app = express();
 const PORT = 8000;
+// MongoDB Connection
 
 mongoose.set('strictQuery', false);
 
-// MongoDB Connection
 const connectDB = async () => {
   try {
     const conn = await mongoose.connect(process.env.MONGO_URL, {
@@ -55,11 +55,16 @@ app.use(cors());
 
 // Book the monday seats
 app.post('/book-monday', async (req, res) => {
-  const { selectedSeats } = req.body;
+  const { selectedSeats, showTime } = req.body;
 
-  try {
-    // Store the selected seats in the bookedSeats collection in your database
-    await MondaySeat.insertMany(selectedSeats.map((seatNumber) => ({ seatNumber })));
+   try {
+    // Store the selected seats for Monday in the database
+    const seatsToBook = selectedSeats.map((seatNumber) => ({
+      seatNumber,
+      showTime,
+    }));
+
+    await MondaySeat.insertMany(seatsToBook);
 
     res.json({ success: true });
   } catch (error) {
@@ -70,11 +75,17 @@ app.post('/book-monday', async (req, res) => {
 
 // Book the Tuesday seats
 app.post('/book-tuesday', async (req, res) => {
-  const { selectedSeats } = req.body;
+  const { selectedSeats, showTime } = req.body;
+
 
   try {
     // Store the selected seats in the bookedSeats collection in your database
-    await TuesdaySeat.insertMany(selectedSeats.map((seatNumber) => ({ seatNumber })));
+    const seatsToBook = selectedSeats.map((seatNumber) => ({
+      seatNumber,
+      showTime,
+    }));
+
+    await TuesdaySeat.insertMany(seatsToBook);
 
     res.json({ success: true });
   } catch (error) {
@@ -86,11 +97,16 @@ app.post('/book-tuesday', async (req, res) => {
 
 // Book the Wednesday seats
 app.post('/book-wednesday', async (req, res) => {
-  const { selectedSeats } = req.body;
+  const { selectedSeats, showTime } = req.body;
 
   try {
     // Store the selected seats in the bookedSeats collection in your database
-    await WednesdaySeat.insertMany(selectedSeats.map((seatNumber) => ({ seatNumber })));
+    const seatsToBook = selectedSeats.map((seatNumber) => ({
+      seatNumber,
+      showTime,
+    }));
+
+    await WednesdaySeat.insertMany(seatsToBook);
 
     res.json({ success: true });
   } catch (error) {
@@ -102,11 +118,16 @@ app.post('/book-wednesday', async (req, res) => {
 
 // Book the Thursday seats
 app.post('/book-thursday', async (req, res) => {
-  const { selectedSeats } = req.body;
+  const { selectedSeats, showTime } = req.body;
 
   try {
     // Store the selected seats in the bookedSeats collection in your database
-    await ThursdaySeat.insertMany(selectedSeats.map((seatNumber) => ({ seatNumber })));
+    const seatsToBook = selectedSeats.map((seatNumber) => ({
+      seatNumber,
+      showTime,
+    }));
+
+    await ThursdaySeat.insertMany(seatsToBook);
 
     res.json({ success: true });
   } catch (error) {
@@ -118,11 +139,16 @@ app.post('/book-thursday', async (req, res) => {
 
 // Book the Friday seats
 app.post('/book-friday', async (req, res) => {
-  const { selectedSeats } = req.body;
+  const { selectedSeats, showTime } = req.body;
 
   try {
     // Store the selected seats in the bookedSeats collection in your database
-    await FridaySeat.insertMany(selectedSeats.map((seatNumber) => ({ seatNumber })));
+    const seatsToBook = selectedSeats.map((seatNumber) => ({
+      seatNumber,
+      showTime,
+    }));
+
+    await FridaySeat.insertMany(seatsToBook);
 
     res.json({ success: true });
   } catch (error) {
@@ -134,11 +160,16 @@ app.post('/book-friday', async (req, res) => {
 
 // Book the saturday seats
 app.post('/book-saturday', async (req, res) => {
-  const { selectedSeats } = req.body;
+  const { selectedSeats, showTime } = req.body;
 
   try {
     // Store the selected seats in the bookedSeats collection in your database
-    await SaturdaySeat.insertMany(selectedSeats.map((seatNumber) => ({ seatNumber })));
+    const seatsToBook = selectedSeats.map((seatNumber) => ({
+      seatNumber,
+      showTime,
+    }));
+
+    await SaturdaySeat.insertMany(seatsToBook);
 
     res.json({ success: true });
   } catch (error) {
@@ -147,14 +178,18 @@ app.post('/book-saturday', async (req, res) => {
   }
 });
 
-
 // Book the Sunday seats
 app.post('/book-sunday', async (req, res) => {
-  const { selectedSeats } = req.body;
+  const { selectedSeats, showTime } = req.body;
 
   try {
     // Store the selected seats in the bookedSeats collection in your database
-    await SundaySeat.insertMany(selectedSeats.map((seatNumber) => ({ seatNumber })));
+    const seatsToBook = selectedSeats.map((seatNumber) => ({
+      seatNumber,
+      showTime,
+    }));
+
+    await SundaySeat.insertMany(seatsToBook);
 
     res.json({ success: true });
   } catch (error) {
@@ -167,23 +202,24 @@ app.post('/book-sunday', async (req, res) => {
 // Route to get the list of booked Monday seats from the database
 app.get('/booked-monday', async (req, res) => {
   try {
-    // Query the database to get all booked seats
-    const bookedSeats = await MondaySeat.find({}, { seatNumber: 1, _id: 0 });
-    const bookedSeatNumbers = bookedSeats.map((seat) => seat.seatNumber);
-    res.json({ bookedSeats: bookedSeatNumbers });
+    // Query the database to get all booked seats for Monday
+    const bookedSeats = await MondaySeat.find({}, { _id: 0 });
+
+    res.json({ bookedSeats });
   } catch (error) {
     console.error('Failed to fetch booked seats:', error);
     res.status(500).json({ success: false, error: 'Failed to fetch booked seats' });
   }
 });
 
+
 // Route to get the list of booked Tuesday seats from the database
 app.get('/booked-tuesday', async (req, res) => {
   try {
-    // Query the database to get all booked seats
-    const bookedSeats = await TuesdaySeat.find({}, { seatNumber: 1, _id: 0 });
-    const bookedSeatNumbers = bookedSeats.map((seat) => seat.seatNumber);
-    res.json({ bookedSeats: bookedSeatNumbers });
+    // Query the database to get all booked seats for Monday
+    const bookedSeats = await TuesdaySeat.find({}, { _id: 0 });
+
+    res.json({ bookedSeats });
   } catch (error) {
     console.error('Failed to fetch booked seats:', error);
     res.status(500).json({ success: false, error: 'Failed to fetch booked seats' });
@@ -192,11 +228,12 @@ app.get('/booked-tuesday', async (req, res) => {
 
 // Route to get the list of booked Wednesday seats from the database
 app.get('/booked-wednesday', async (req, res) => {
+
   try {
-    // Query the database to get all booked seats
-    const bookedSeats = await WednesdaySeat.find({}, { seatNumber: 1, _id: 0 });
-    const bookedSeatNumbers = bookedSeats.map((seat) => seat.seatNumber);
-    res.json({ bookedSeats: bookedSeatNumbers });
+    // Query the database to get all booked seats for Monday
+    const bookedSeats = await WednesdaySeat.find({}, { _id: 0 });
+
+    res.json({ bookedSeats });
   } catch (error) {
     console.error('Failed to fetch booked seats:', error);
     res.status(500).json({ success: false, error: 'Failed to fetch booked seats' });
@@ -207,10 +244,10 @@ app.get('/booked-wednesday', async (req, res) => {
 // Route to get the list of booked thurstday seats from the database
 app.get('/booked-thursday', async (req, res) => {
   try {
-    // Query the database to get all booked seats
-    const bookedSeats = await ThursdaySeat.find({}, { seatNumber: 1, _id: 0 });
-    const bookedSeatNumbers = bookedSeats.map((seat) => seat.seatNumber);
-    res.json({ bookedSeats: bookedSeatNumbers });
+    // Query the database to get all booked seats for Monday
+    const bookedSeats = await ThursdaySeat.find({}, { _id: 0 });
+
+    res.json({ bookedSeats });
   } catch (error) {
     console.error('Failed to fetch booked seats:', error);
     res.status(500).json({ success: false, error: 'Failed to fetch booked seats' });
@@ -220,10 +257,10 @@ app.get('/booked-thursday', async (req, res) => {
 // Route to get the list of booked thurstday seats from the database
 app.get('/booked-friday', async (req, res) => {
   try {
-    // Query the database to get all booked seats
-    const bookedSeats = await FridaySeat.find({}, { seatNumber: 1, _id: 0 });
-    const bookedSeatNumbers = bookedSeats.map((seat) => seat.seatNumber);
-    res.json({ bookedSeats: bookedSeatNumbers });
+    // Query the database to get all booked seats for Monday
+    const bookedSeats = await FridaySeat.find({}, { _id: 0 });
+
+    res.json({ bookedSeats });
   } catch (error) {
     console.error('Failed to fetch booked seats:', error);
     res.status(500).json({ success: false, error: 'Failed to fetch booked seats' });
@@ -233,10 +270,10 @@ app.get('/booked-friday', async (req, res) => {
 // Route to get the list of booked saturday seats from the database
 app.get('/booked-saturday', async (req, res) => {
   try {
-    // Query the database to get all booked seats
-    const bookedSeats = await SaturdaySeat.find({}, { seatNumber: 1, _id: 0 });
-    const bookedSeatNumbers = bookedSeats.map((seat) => seat.seatNumber);
-    res.json({ bookedSeats: bookedSeatNumbers });
+    // Query the database to get all booked seats for Monday
+    const bookedSeats = await SaturdaySeat.find({}, { _id: 0 });
+
+    res.json({ bookedSeats });
   } catch (error) {
     console.error('Failed to fetch booked seats:', error);
     res.status(500).json({ success: false, error: 'Failed to fetch booked seats' });
@@ -245,16 +282,18 @@ app.get('/booked-saturday', async (req, res) => {
 
 // Route to get the list of booked sunday seats from the database
 app.get('/booked-sunday', async (req, res) => {
+
   try {
-    // Query the database to get all booked seats
-    const bookedSeats = await SundaySeat.find({}, { seatNumber: 1, _id: 0 });
-    const bookedSeatNumbers = bookedSeats.map((seat) => seat.seatNumber);
-    res.json({ bookedSeats: bookedSeatNumbers });
+    // Query the database to get all booked seats for Monday
+    const bookedSeats = await SundaySeat.find({}, { _id: 0 });
+
+    res.json({ bookedSeats });
   } catch (error) {
     console.error('Failed to fetch booked seats:', error);
     res.status(500).json({ success: false, error: 'Failed to fetch booked seats' });
   }
 });
+ 
 
 // Book the seats
 app.post('/book-seats', async (req, res) => {

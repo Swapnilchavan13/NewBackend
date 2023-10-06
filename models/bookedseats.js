@@ -6,6 +6,10 @@ const daySchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  showTime: {
+    type: String,
+    required: true,
+  }
 });
 
 // Define models for each day of the week
