@@ -62,6 +62,7 @@ app.post('/book-monday', async (req, res) => {
     const seatsToBook = selectedSeats.map((seatNumber) => ({
       seatNumber,
       showTime,
+      mobNum
     }));
 
     await MondaySeat.insertMany(seatsToBook);
@@ -83,6 +84,8 @@ app.post('/book-tuesday', async (req, res) => {
     const seatsToBook = selectedSeats.map((seatNumber) => ({
       seatNumber,
       showTime,
+      mobNum
+
     }));
 
     await TuesdaySeat.insertMany(seatsToBook);
@@ -104,6 +107,7 @@ app.post('/book-wednesday', async (req, res) => {
     const seatsToBook = selectedSeats.map((seatNumber) => ({
       seatNumber,
       showTime,
+      mobNum
     }));
 
     await WednesdaySeat.insertMany(seatsToBook);
@@ -125,6 +129,7 @@ app.post('/book-thursday', async (req, res) => {
     const seatsToBook = selectedSeats.map((seatNumber) => ({
       seatNumber,
       showTime,
+      mobNum
     }));
 
     await ThursdaySeat.insertMany(seatsToBook);
@@ -146,6 +151,7 @@ app.post('/book-friday', async (req, res) => {
     const seatsToBook = selectedSeats.map((seatNumber) => ({
       seatNumber,
       showTime,
+      mobNum
     }));
 
     await FridaySeat.insertMany(seatsToBook);
@@ -167,6 +173,7 @@ app.post('/book-saturday', async (req, res) => {
     const seatsToBook = selectedSeats.map((seatNumber) => ({
       seatNumber,
       showTime,
+      mobNum
     }));
 
     await SaturdaySeat.insertMany(seatsToBook);
@@ -187,6 +194,7 @@ app.post('/book-sunday', async (req, res) => {
     const seatsToBook = selectedSeats.map((seatNumber) => ({
       seatNumber,
       showTime,
+      mobNum
     }));
 
     await SundaySeat.insertMany(seatsToBook);

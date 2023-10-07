@@ -9,6 +9,10 @@ const daySchema = new mongoose.Schema({
   showTime: {
     type: String,
     required: true,
+  },
+  mobNum: {
+    type: Number,
+    required: true,
   }
 });
 
