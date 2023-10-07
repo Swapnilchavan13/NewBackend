@@ -55,7 +55,7 @@ app.use(cors());
 
 // Book the monday seats
 app.post('/book-monday', async (req, res) => {
-  const { selectedSeats, showTime } = req.body;
+  const { selectedSeats, showTime, mobNum } = req.body;
 
    try {
     // Store the selected seats for Monday in the database
@@ -76,7 +76,7 @@ app.post('/book-monday', async (req, res) => {
 
 // Book the Tuesday seats
 app.post('/book-tuesday', async (req, res) => {
-  const { selectedSeats, showTime } = req.body;
+  const { selectedSeats, showTime, mobNum } = req.body;
 
 
   try {
@@ -100,7 +100,7 @@ app.post('/book-tuesday', async (req, res) => {
 
 // Book the Wednesday seats
 app.post('/book-wednesday', async (req, res) => {
-  const { selectedSeats, showTime } = req.body;
+  const { selectedSeats, showTime, mobNum } = req.body;
 
   try {
     // Store the selected seats in the bookedSeats collection in your database
@@ -122,7 +122,7 @@ app.post('/book-wednesday', async (req, res) => {
 
 // Book the Thursday seats
 app.post('/book-thursday', async (req, res) => {
-  const { selectedSeats, showTime } = req.body;
+  const { selectedSeats, showTime, mobNum } = req.body;
 
   try {
     // Store the selected seats in the bookedSeats collection in your database
@@ -144,7 +144,7 @@ app.post('/book-thursday', async (req, res) => {
 
 // Book the Friday seats
 app.post('/book-friday', async (req, res) => {
-  const { selectedSeats, showTime } = req.body;
+  const { selectedSeats, showTime, mobNum } = req.body;
 
   try {
     // Store the selected seats in the bookedSeats collection in your database
@@ -166,7 +166,7 @@ app.post('/book-friday', async (req, res) => {
 
 // Book the saturday seats
 app.post('/book-saturday', async (req, res) => {
-  const { selectedSeats, showTime } = req.body;
+  const { selectedSeats, showTime, mobNum } = req.body;
 
   try {
     // Store the selected seats in the bookedSeats collection in your database
@@ -187,7 +187,7 @@ app.post('/book-saturday', async (req, res) => {
 
 // Book the Sunday seats
 app.post('/book-sunday', async (req, res) => {
-  const { selectedSeats, showTime } = req.body;
+  const { selectedSeats, showTime, mobNum } = req.body;
 
   try {
     // Store the selected seats in the bookedSeats collection in your database
