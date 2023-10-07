@@ -11,7 +11,7 @@ const daySchema = new mongoose.Schema({
     required: true,
   },
   mobNum: {
-    type: Number,
+    type: String,
     required: true,
   }
 });
