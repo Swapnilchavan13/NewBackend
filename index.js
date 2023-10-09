@@ -54,25 +54,39 @@ app.use(cors());
 
 
 // Book the monday seats
+// Book the Monday seats
 app.post('/book-monday', async (req, res) => {
   const { selectedSeats, showTime, mobNum } = req.body;
 
-   try {
-    // Store the selected seats for Monday in the database
-    const seatsToBook = selectedSeats.map((seatNumber) => ({
-      seatNumber,
+  try {
+    // Check if the selected seats and showTime are already booked
+    const existingBookings = await MondaySeat.find({
+      seatNumber: { $in: selectedSeats },
       showTime,
-      mobNum
-    }));
+    });
 
-    await MondaySeat.insertMany(seatsToBook);
+    if (existingBookings.length > 0) {
+      // Tickets are already booked
+      res.json({ success: false, message: 'Tickets are already booked' });
+    } else {
+      // Store the selected seats for Monday in the database
+      const seatsToBook = selectedSeats.map((seatNumber) => ({
+        seatNumber,
+        showTime,
+        mobNum
+      }));
 
-    res.json({ success: true });
+      // Assuming MondaySeat is your database model for Monday bookings
+      await MondaySeat.insertMany(seatsToBook);
+
+      res.json({ success: true });
+    }
   } catch (error) {
     console.error('Failed to book seats:', error);
     res.status(500).json({ success: false, error: 'Failed to book seats' });
   }
 });
+
 
 // Book the Tuesday seats
 app.post('/book-tuesday', async (req, res) => {
