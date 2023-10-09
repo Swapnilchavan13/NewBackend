@@ -67,7 +67,7 @@ app.post('/book-monday', async (req, res) => {
 
     if (existingBookings.length > 0) {
       // Tickets are already booked
-      res.json({ success: false, message: 'Tickets are already booked' });
+      res.json({ success: false, message: 'Sorry Seats are already booked Please select another Seats' });
     } else {
       // Store the selected seats for Monday in the database
       const seatsToBook = selectedSeats.map((seatNumber) => ({
@@ -94,17 +94,28 @@ app.post('/book-tuesday', async (req, res) => {
 
 
   try {
-    // Store the selected seats in the bookedSeats collection in your database
-    const seatsToBook = selectedSeats.map((seatNumber) => ({
-      seatNumber,
+    // Check if the selected seats and showTime are already booked
+    const existingBookings = await TuesdaySeat.find({
+      seatNumber: { $in: selectedSeats },
       showTime,
-      mobNum
+    });
 
-    }));
+    if (existingBookings.length > 0) {
+      // Tickets are already booked
+      res.json({ success: false, message: 'Sorry Seats are already booked Please select another Seats' });
+    } else {
+      // Store the selected seats for Tuesday in the database
+      const seatsToBook = selectedSeats.map((seatNumber) => ({
+        seatNumber,
+        showTime,
+        mobNum
+      }));
 
-    await TuesdaySeat.insertMany(seatsToBook);
+      // Assuming MondaySeat is your database model for Tuesday bookings
+      await TuesdaySeat.insertMany(seatsToBook);
 
-    res.json({ success: true });
+      res.json({ success: true });
+    }
   } catch (error) {
     console.error('Failed to book seats:', error);
     res.status(500).json({ success: false, error: 'Failed to book seats' });
@@ -117,16 +128,28 @@ app.post('/book-wednesday', async (req, res) => {
   const { selectedSeats, showTime, mobNum } = req.body;
 
   try {
-    // Store the selected seats in the bookedSeats collection in your database
-    const seatsToBook = selectedSeats.map((seatNumber) => ({
-      seatNumber,
+    // Check if the selected seats and showTime are already booked
+    const existingBookings = await WednesdaySeat.find({
+      seatNumber: { $in: selectedSeats },
       showTime,
-      mobNum
-    }));
+    });
 
-    await WednesdaySeat.insertMany(seatsToBook);
+    if (existingBookings.length > 0) {
+      // Tickets are already booked
+      res.json({ success: false, message: 'Sorry Seats are already booked Please select another Seats' });
+    } else {
+      // Store the selected seats for Wednesday in the database
+      const seatsToBook = selectedSeats.map((seatNumber) => ({
+        seatNumber,
+        showTime,
+        mobNum
+      }));
 
-    res.json({ success: true });
+      // Assuming MondaySeat is your database model for Wednesday bookings
+      await WednesdaySeat.insertMany(seatsToBook);
+
+      res.json({ success: true });
+    }
   } catch (error) {
     console.error('Failed to book seats:', error);
     res.status(500).json({ success: false, error: 'Failed to book seats' });
@@ -139,16 +162,28 @@ app.post('/book-thursday', async (req, res) => {
   const { selectedSeats, showTime, mobNum } = req.body;
 
   try {
-    // Store the selected seats in the bookedSeats collection in your database
-    const seatsToBook = selectedSeats.map((seatNumber) => ({
-      seatNumber,
+    // Check if the selected seats and showTime are already booked
+    const existingBookings = await ThursdaySeat.find({
+      seatNumber: { $in: selectedSeats },
       showTime,
-      mobNum
-    }));
+    });
 
-    await ThursdaySeat.insertMany(seatsToBook);
+    if (existingBookings.length > 0) {
+      // Tickets are already booked
+      res.json({ success: false, message: 'Sorry Seats are already booked Please select another Seats' });
+    } else {
+      // Store the selected seats for Thursday in the database
+      const seatsToBook = selectedSeats.map((seatNumber) => ({
+        seatNumber,
+        showTime,
+        mobNum
+      }));
 
-    res.json({ success: true });
+      // Assuming MondaySeat is your database model for Thursday bookings
+      await ThursdaySeat.insertMany(seatsToBook);
+
+      res.json({ success: true });
+    }
   } catch (error) {
     console.error('Failed to book seats:', error);
     res.status(500).json({ success: false, error: 'Failed to book seats' });
@@ -161,16 +196,28 @@ app.post('/book-friday', async (req, res) => {
   const { selectedSeats, showTime, mobNum } = req.body;
 
   try {
-    // Store the selected seats in the bookedSeats collection in your database
-    const seatsToBook = selectedSeats.map((seatNumber) => ({
-      seatNumber,
+    // Check if the selected seats and showTime are already booked
+    const existingBookings = await FridaySeat.find({
+      seatNumber: { $in: selectedSeats },
       showTime,
-      mobNum
-    }));
+    });
 
-    await FridaySeat.insertMany(seatsToBook);
+    if (existingBookings.length > 0) {
+      // Tickets are already booked
+      res.json({ success: false, message: 'Sorry Seats are already booked Please select another Seats' });
+    } else {
+      // Store the selected seats for Friday in the database
+      const seatsToBook = selectedSeats.map((seatNumber) => ({
+        seatNumber,
+        showTime,
+        mobNum
+      }));
 
-    res.json({ success: true });
+      // Assuming MondaySeat is your database model for Friday bookings
+      await FridaySeat.insertMany(seatsToBook);
+
+      res.json({ success: true });
+    }
   } catch (error) {
     console.error('Failed to book seats:', error);
     res.status(500).json({ success: false, error: 'Failed to book seats' });
@@ -183,16 +230,28 @@ app.post('/book-saturday', async (req, res) => {
   const { selectedSeats, showTime, mobNum } = req.body;
 
   try {
-    // Store the selected seats in the bookedSeats collection in your database
-    const seatsToBook = selectedSeats.map((seatNumber) => ({
-      seatNumber,
+    // Check if the selected seats and showTime are already booked
+    const existingBookings = await SaturdaySeat.find({
+      seatNumber: { $in: selectedSeats },
       showTime,
-      mobNum
-    }));
+    });
 
-    await SaturdaySeat.insertMany(seatsToBook);
+    if (existingBookings.length > 0) {
+      // Tickets are already booked
+      res.json({ success: false, message: 'Sorry Seats are already booked Please select another Seats' });
+    } else {
+      // Store the selected seats for saturday in the database
+      const seatsToBook = selectedSeats.map((seatNumber) => ({
+        seatNumber,
+        showTime,
+        mobNum
+      }));
 
-    res.json({ success: true });
+      // Assuming MondaySeat is your database model for saturday bookings
+      await SaturdaySeat.insertMany(seatsToBook);
+
+      res.json({ success: true });
+    }
   } catch (error) {
     console.error('Failed to book seats:', error);
     res.status(500).json({ success: false, error: 'Failed to book seats' });
@@ -204,16 +263,28 @@ app.post('/book-sunday', async (req, res) => {
   const { selectedSeats, showTime, mobNum } = req.body;
 
   try {
-    // Store the selected seats in the bookedSeats collection in your database
-    const seatsToBook = selectedSeats.map((seatNumber) => ({
-      seatNumber,
+    // Check if the selected seats and showTime are already booked
+    const existingBookings = await SundaySeat.find({
+      seatNumber: { $in: selectedSeats },
       showTime,
-      mobNum
-    }));
+    });
 
-    await SundaySeat.insertMany(seatsToBook);
+    if (existingBookings.length > 0) {
+      // Tickets are already booked
+      res.json({ success: false, message: 'Sorry Seats are already booked Please select another Seats' });
+    } else {
+      // Store the selected seats for Sunday in the database
+      const seatsToBook = selectedSeats.map((seatNumber) => ({
+        seatNumber,
+        showTime,
+        mobNum
+      }));
 
-    res.json({ success: true });
+      // Assuming MondaySeat is your database model for Sunday bookings
+      await SundaySeat.insertMany(seatsToBook);
+
+      res.json({ success: true });
+    }
   } catch (error) {
     console.error('Failed to book seats:', error);
     res.status(500).json({ success: false, error: 'Failed to book seats' });
