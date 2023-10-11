@@ -55,7 +55,7 @@ app.use(cors());
 
 // Book the Monday seats
 app.post('/book-monday', async (req, res) => {
-  const { selectedSeats, showTime, mobNum } = req.body;
+  const { selectedSeats, showTime, mobNum, sdate } = req.body;
 
   try {
     // Check if the selected seats and showTime are already booked
@@ -90,7 +90,7 @@ app.post('/book-monday', async (req, res) => {
 
 // Book the Tuesday seats
 app.post('/book-tuesday', async (req, res) => {
-  const { selectedSeats, showTime, mobNum } = req.body;
+  const { selectedSeats, showTime, mobNum, sdate } = req.body;
 
 
   try {
@@ -126,7 +126,7 @@ app.post('/book-tuesday', async (req, res) => {
 
 // Book the Wednesday seats
 app.post('/book-wednesday', async (req, res) => {
-  const { selectedSeats, showTime, mobNum } = req.body;
+  const { selectedSeats, showTime, mobNum, sdate } = req.body;
 
   try {
     // Check if the selected seats and showTime are already booked
@@ -161,7 +161,7 @@ app.post('/book-wednesday', async (req, res) => {
 
 // Book the Thursday seats
 app.post('/book-thursday', async (req, res) => {
-  const { selectedSeats, showTime, mobNum } = req.body;
+  const { selectedSeats, showTime, mobNum, sdate } = req.body;
 
   try {
     // Check if the selected seats and showTime are already booked
@@ -196,7 +196,7 @@ app.post('/book-thursday', async (req, res) => {
 
 // Book the Friday seats
 app.post('/book-friday', async (req, res) => {
-  const { selectedSeats, showTime, mobNum } = req.body;
+  const { selectedSeats, showTime, mobNum, sdate } = req.body;
 
   try {
     // Check if the selected seats and showTime are already booked
@@ -231,7 +231,7 @@ app.post('/book-friday', async (req, res) => {
 
 // Book the saturday seats
 app.post('/book-saturday', async (req, res) => {
-  const { selectedSeats, showTime, mobNum } = req.body;
+  const { selectedSeats, showTime, mobNum, sdate } = req.body;
 
   try {
     // Check if the selected seats and showTime are already booked
@@ -265,7 +265,7 @@ app.post('/book-saturday', async (req, res) => {
 
 // Book the Sunday seats
 app.post('/book-sunday', async (req, res) => {
-  const { selectedSeats, showTime, mobNum } = req.body;
+  const { selectedSeats, showTime, mobNum, sdate } = req.body;
 
   try {
     // Check if the selected seats and showTime are already booked
