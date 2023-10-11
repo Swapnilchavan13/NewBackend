@@ -53,7 +53,6 @@ app.use(bodyParser.json());
 app.use(cors());
 
 
-// Book the monday seats
 // Book the Monday seats
 app.post('/book-monday', async (req, res) => {
   const { selectedSeats, showTime, mobNum } = req.body;
@@ -73,7 +72,8 @@ app.post('/book-monday', async (req, res) => {
       const seatsToBook = selectedSeats.map((seatNumber) => ({
         seatNumber,
         showTime,
-        mobNum
+        mobNum,
+        sdate
       }));
 
       // Assuming MondaySeat is your database model for Monday bookings
@@ -108,7 +108,8 @@ app.post('/book-tuesday', async (req, res) => {
       const seatsToBook = selectedSeats.map((seatNumber) => ({
         seatNumber,
         showTime,
-        mobNum
+        mobNum,
+        sdate
       }));
 
       // Assuming MondaySeat is your database model for Tuesday bookings
@@ -142,7 +143,8 @@ app.post('/book-wednesday', async (req, res) => {
       const seatsToBook = selectedSeats.map((seatNumber) => ({
         seatNumber,
         showTime,
-        mobNum
+        mobNum,
+        sdate
       }));
 
       // Assuming MondaySeat is your database model for Wednesday bookings
@@ -176,7 +178,8 @@ app.post('/book-thursday', async (req, res) => {
       const seatsToBook = selectedSeats.map((seatNumber) => ({
         seatNumber,
         showTime,
-        mobNum
+        mobNum,
+        sdate
       }));
 
       // Assuming MondaySeat is your database model for Thursday bookings
@@ -210,7 +213,8 @@ app.post('/book-friday', async (req, res) => {
       const seatsToBook = selectedSeats.map((seatNumber) => ({
         seatNumber,
         showTime,
-        mobNum
+        mobNum,
+        sdate
       }));
 
       // Assuming MondaySeat is your database model for Friday bookings
@@ -244,7 +248,8 @@ app.post('/book-saturday', async (req, res) => {
       const seatsToBook = selectedSeats.map((seatNumber) => ({
         seatNumber,
         showTime,
-        mobNum
+        mobNum,
+        sdate
       }));
 
       // Assuming MondaySeat is your database model for saturday bookings
@@ -277,7 +282,8 @@ app.post('/book-sunday', async (req, res) => {
       const seatsToBook = selectedSeats.map((seatNumber) => ({
         seatNumber,
         showTime,
-        mobNum
+        mobNum,
+        sdate
       }));
 
       // Assuming MondaySeat is your database model for Sunday bookings

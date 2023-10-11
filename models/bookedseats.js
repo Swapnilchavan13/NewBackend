@@ -13,6 +13,10 @@ const daySchema = new mongoose.Schema({
   mobNum: {
     type: String,
     required: true,
+  },
+  sdate: {
+    type: String,
+    required: true,
   }
 });
 
